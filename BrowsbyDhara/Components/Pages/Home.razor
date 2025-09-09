@@ -1,8 +1,167 @@
 ﻿@page "/"
+@inject IJSRuntime JSRuntime
 
-<PageTitle>Home</PageTitle>
+@* <PageTitle>Brows by Dhara</PageTitle>
+
+ <div class="bg-pink-100 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-primary-3-200 px-6 py-3 flex justify-between items-center rounded-b-lg shadow-md">
+        <h1 class="text-white text-2xl font-bold">Brows by Dhara</h1>
+        <ul class="flex space-x-6 text-white font-medium">
+            <li><a href="#" class="hover:underline">Services</a></li>
+            <li><a href="#" class="hover:underline">Pricing</a></li>
+            <li><a href="#" class="hover:underline">About</a></li>
+            <li><a href="#" class="hover:underline">Team</a></li>
+            <li><a href="#" class="hover:underline">Portfolio</a></li>
+            <li><a href="#" class="hover:underline">Testimonials</a></li>
+            <li><a href="#" class="hover:underline">Products</a></li>
+            <li><a href="#" class="hover:underline">Contacts</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="text-center py-20 bg-pink-100">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+             Your Beauty, Our Passion
+        </h2>
+        <p class="text-lg text-primary-3-400 font-medium">
+            Professional Threading & Salon Services
+        </p>
+    </section>
+
+    <!-- Info Cards -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 px-10 pb-20">
+        <!-- Location -->
+        <div class="bg-white rounded-xl shadow-md p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Location</h3>
+            <p class="text-gray-600">abc Street,<br /> Auburn, AL</p>
+            <a href="#" class="text-rose-500 hover:underline">Directions</a>
+        </div>
+
+        <!-- Hours -->
+        <div class="bg-white rounded-xl shadow-md p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Hours</h3>
+            <p class="text-gray-600">Tuesday–Wednesday: 9am–6pm</p>
+            <p class="text-gray-600">Thursday–Friday: 9am–7pm</p>
+            <p class="text-gray-600">Saturday: 9am–5pm</p>
+        </div>
+
+        <!-- Contacts -->
+        <div class="bg-white rounded-xl shadow-md p-6 text-center">
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Contacts</h3>
+            <p class="text-gray-600">+1 (xxx) xxx xx xx</p>
+            <p class="text-gray-600">abc@email.com</p>
+        </div>
+    </section>
+</div> *@
 
 
-<h1 class="text-3xl font-bold ">
-    Hello world!
-</h1>
+
+<PageTitle>Brows by Dhara - Your Beauty, Our Passion</PageTitle>
+
+<!-- Hero Section with Background Image -->
+<section class="hero-section relative h-screen max-h-[70vh] md:max-h-[80vh] flex items-center justify-center text-center text-white">
+    <!-- Background overlay for better text readability -->
+      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+    <!-- Background image -->
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+         style="background-image: url('/images/bg.jpg');">
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 -mt-18">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight drop-shadow-lg">
+            Your Beauty,
+            <span class="text-rose-300">Our Passion</span>
+        </h1>
+        <p class="text-lg md:text-xl mb-6 text-gray-100 max-w-2xl mx-auto drop-shadow-md">
+            Professional Threading & Salon Services
+        </p>
+
+        <!-- Call to Action Button -->
+        <button class="bg-gradient-to-r from-rose-400 to-pink-500 hover:from-rose-500 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-full text-base shadow-lg transform hover:scale-105 transition-all duration-300"
+                @onclick="BookAppointment">
+            Book Appointment
+        </button>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-20 bg-gradient-to-br from-rose-50 to-pink-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Services</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-rose-400 to-pink-500 mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Eyebrow Threading -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-lg border border-rose-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-rose-500">Eyebrow Threading</h3>
+                <p class="text-gray-600 leading-relaxed">Perfectly shaped brows that enhance your look with precision threading techniques.</p>
+            </div>
+
+            <!-- Facial Treatments -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-lg border border-rose-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-rose-500">Facial Treatments</h3>
+                <p class="text-gray-600 leading-relaxed">Rejuvenate your skin with our premium facials tailored to your skin type.</p>
+            </div>
+
+            <!-- Makeup & Styling -->
+            <div class="bg-white rounded-3xl p-8 text-center shadow-lg border border-rose-100 hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                <div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM7 3H5a2 2 0 00-2 2v12a4 4 0 004 4h2M9 3h2a2 2 0 012 2v12a4 4 0 01-4 4H7m2-16v16"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 text-rose-500">Makeup & Styling</h3>
+                <p class="text-gray-600 leading-relaxed">Flawless makeup for every occasion, from everyday looks to special events.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">About Us</h2>
+            <div class="w-24 h-1 bg-gradient-to-r from-rose-400 to-pink-500 mx-auto mb-12"></div>
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-gray-600 leading-relaxed mb-8">
+                    At Brows by Dhara, we believe that beauty is an art form. With years of experience in professional threading and beauty services, we're dedicated to enhancing your natural beauty with precision, care, and attention to detail.
+                </p>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Our mission is to provide you with exceptional service in a comfortable, welcoming environment where you can relax and leave feeling confident and beautiful.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeSpaAnimations");
+        }
+    }
+
+    private async Task BookAppointment()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", "Booking system coming soon! Please call us to book your appointment.");
+    }
+}
