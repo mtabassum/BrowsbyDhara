@@ -1,29 +1,54 @@
-﻿
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
 
-<!-- Navigation -->
-<nav class="bg-gradient-to-r from-rose-400 to-pink-500 text-white shadow-lg fixed w-full top-0 z-50 backdrop-blur-sm">
+
+<nav class="bg-rose-300 text-white shadow-md fixed w-full top-0 z-50 backdrop-blur-sm">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <div class="flex items-center">
-                <h1 class="text-2xl font-bold tracking-wide cursor-pointer md:ml-2" @onclick="@(() => ScrollToTop())">
+                <h1 class="text-2xl font-bold tracking-wide cursor-pointer md:ml-2 select-none focus:outline-none" @onclick="@(() => ScrollToTop())">
                     Brows by Dhara
                 </h1>
             </div>
-
             <!-- Desktop Navigation -->
             <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-6">
-                    <a href="#services" class="hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 cursor-pointer"
-                       @onclick="@(() => ScrollToSection("services"))" @onclick:preventDefault="true">Services</a>
-                    <a href="#about" class="hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 cursor-pointer"
-                       @onclick="@(() => ScrollToSection("about"))" @onclick:preventDefault="true">About</a>
-                    <a href="#contact" class="hover:bg-white hover:bg-opacity-20 px-3 py-2 rounded-md text-base font-medium transition-all duration-300 cursor-pointer"
-                       @onclick="@(() => ScrollToSection("contact"))" @onclick:preventDefault="true">Contact</a>
+                    <div class="relative group">
+                        <a href="#services"
+                           class="relative inline-block px-3 py-2 text-base font-medium cursor-pointer
+          after:content-[''] after:block after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300
+          group-hover:after:w-full"
+                           @onclick="@(() => ScrollToSection("Services"))" @onclick:preventDefault="true">
+                            Services
+                        </a>
+                        <!-- Submenu -->
+                        <div class="absolute left-0 mt-2 w-48 bg-white text-gray-700 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform -translate-y-2 transition-all duration-300">     
+                        <a href="#eyebrow" class="block px-4 py-2 hover:bg-rose-100">Eyebrow Threading</a>
+                        <a href="#makeup" class="block px-4 py-2 hover:bg-rose-100">Makeup</a>
+                        <a href="#facial" class="block px-4 py-2 hover:bg-rose-100">Facial</a>
+                        </div>
+                    </div>
+                    <!-- About -->
+                    <a href="#about"
+                       class="relative px-3 py-2 text-base font-medium cursor-pointer
+                  after:content-[''] after:block after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300
+                  hover:after:w-full"
+                       @onclick="@(() => ScrollToSection("about"))" @onclick:preventDefault="true">
+                        About
+                    </a>
+
+                    <!-- Contact -->
+                    <a href="#contact"
+                       class="relative px-3 py-2 text-base font-medium cursor-pointer
+                  after:content-[''] after:block after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300
+                  hover:after:w-full"
+                       @onclick="@(() => ScrollToSection("contact"))" @onclick:preventDefault="true">
+                        Contact
+                    </a>
                 </div>
             </div>
+
 
             <!-- Mobile menu button -->
             <div class="md:hidden">
@@ -104,7 +129,7 @@
                 </ul>
             </div>
 
-            <div>
+            <div id="contact">
                 <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
                 <div class="space-y-2 text-gray-300">
                     <p>📍 abc Street<br>Auburn, AL</p>
