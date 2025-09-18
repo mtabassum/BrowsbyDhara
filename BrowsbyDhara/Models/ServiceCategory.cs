@@ -1,10 +1,13 @@
-﻿namespace BrowsbyDhara.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BrowsbyDhara.Models
 {
     public class ServiceCategory
     {
+        [Key]
         public int CategoryId { get; set; } // PK
-        public string CategoryName { get; set; }
-        public string Description { get; set; }
+        public string CategoryName { get; set; } = string.Empty;
+        public string? Description { get; set; } 
         public bool IsActive { get; set; }
 
         public ICollection<Service> Services { get; set; }

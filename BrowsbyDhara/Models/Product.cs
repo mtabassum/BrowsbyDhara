@@ -3,8 +3,8 @@
     public class Product
     {
         public int ProductId { get; set; } // PK
-        public string ProductName { get; set; }
-        public string Description { get; set; }
+        public required string ProductName { get; set; }
+        public string Description { get; set; } = string.Empty;
         public string SKU { get; set; }
         public decimal RetailPrice { get; set; }
         public decimal WholesaleCost { get; set; }

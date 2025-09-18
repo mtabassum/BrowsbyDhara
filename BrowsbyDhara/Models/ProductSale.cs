@@ -2,7 +2,7 @@
 {
     public class ProductSale
     {
-        public int SaleId { get; set; } // PK
+        public int ProductSaleId { get; set; } // PK
         public int ProductId { get; set; } // FK
         public int CustomerId { get; set; } // FK
         public int Quantity { get; set; }

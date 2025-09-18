@@ -11,11 +11,11 @@
         public decimal TotalAmount { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal TipAmount { get; set; }
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ConfirmedDate { get; set; }
         public DateTime? CanceledDate { get; set; }
-        public string CancellationReason { get; set; }
+        public string? CancellationReason { get; set; }
 
         
         public Customer Customer { get; set; }

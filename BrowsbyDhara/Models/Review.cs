@@ -6,7 +6,7 @@
         public int CustomerId { get; set; } // FK
         public int AppointmentId { get; set; } // FK
         public int Rating { get; set; } // 1-5
-        public string Comment { get; set; }
+        public string? Comment { get; set; }
         public DateTime ReviewDate { get; set; }
         public bool IsPublished { get; set; }
 
