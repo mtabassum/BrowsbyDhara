@@ -15,7 +15,6 @@
         public DateTime? LastVisitDate { get; set; }
 
         public ICollection<Appointment> Appointments { get; set; }
-        public ICollection<ProductSale> ProductSales { get; set; }
         public ICollection<Review> Reviews { get; set; }
     }
 }

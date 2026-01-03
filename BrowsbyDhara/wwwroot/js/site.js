@@ -1,0 +1,3 @@
+﻿window.initializeSpaAnimations = function () {
+    
+};

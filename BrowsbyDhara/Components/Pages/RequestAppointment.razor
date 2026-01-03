@@ -1,0 +1,115 @@
+﻿@page "/request-appointment"
+@inject IAppointmentService AppointmentService
+@inject IEmailService EmailService
+@inject NavigationManager Navigation
+@using BrowsbyDhara.Models.DTOs
+@using BrowsbyDhara.Services
+@using BrowsbyDhara.Shared
+
+<section class="py-16 bg-white">
+    <div class="max-w-2xl mx-auto px-4">
+
+        <h1 class="text-2xl font-semibold mb-6 text-center">
+            Appointment Request
+        </h1>
+
+    <EditForm Model="@model" OnValidSubmit="SubmitRequestAsync">
+    <DataAnnotationsValidator />
+
+        <div class="bg-white shadow-md rounded-lg p-6 space-y-4">
+
+                <!-- Name -->
+                <FormField Label="Your Name" For="@(() => model.Name)">
+                    <InputText class="w-full border rounded px-3 py-2"
+                               @bind-Value="model.Name" />
+                </FormField>
+
+        <!-- Email -->
+                <FormField Label="Your Email" For="@(() => model.Email)">
+                    <InputText class="w-full border rounded px-3 py-2"
+                               @bind-Value="model.Email" />
+                </FormField>
+
+                <!-- Phone -->
+                <div>
+                    <label class="block font-medium">Phone Number</label>
+                    <InputText class="w-full border rounded px-3 py-2"
+                               @bind-Value="model.PhoneNumber" />
+                    <ValidationMessage For="@(() => model.PhoneNumber)" />
+                </div>
+
+        <!-- Date -->
+        <div>
+            <label class="block font-medium">Date Requested</label>
+            <InputDate class="w-full border rounded px-3 py-2"
+                       @bind-Value="model.DateRequested" />
+        </div>
+                <!-- Reason for Appointment -->
+                <div>
+                    <label class="block font-medium">Reason for Appointment (required)</label>
+
+                    <InputSelect class="w-full border rounded px-3 py-2"
+                                 @bind-Value="model.Reason">
+                        <option value="">-- Select a service --</option>
+                        <option value="Eyebrow Threading">Eyebrow Threading</option>
+                        <option value="Makeup">Makeup</option>
+                        <option value="Facial">Facial</option>
+                    </InputSelect>
+
+                    <ValidationMessage For="@(() => model.Reason)" />
+                </div>
+
+        <!-- Additional Details -->
+        <div>
+            <label class="block font-medium">Additional Details</label>
+            <InputTextArea class="w-full border rounded px-3 py-2 h-32"
+                           @bind-Value="model.Notes" />
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="mt-4 px-6 py-2 border border-rose-600 text-rose-600 rounded hover:bg-rose-50">
+            Send
+        </button>
+
+            </div>
+        </EditForm>
+
+        <!-- Popup Modal -->
+        @if (showPopup)
+        {
+            <div class="fixed inset-0 z-50 flex items-center justify-center
+                    bg-black/60 backdrop-blur-sm">
+                <div class="bg-white rounded-lg p-6 shadow-lg max-w-sm text-center">
+                    <p class="text-lg font-medium">We received your request, Thank you!</p>
+                    <button class = "bg-rose-300 text-white font-bold py-2 px-4 rounded-lg text-base shadow-md"
+                            @onclick="ClosePopup">
+                        Close
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    private AppointmentRequestDto model = new();
+    private bool showPopup = false;
+
+    private async Task SubmitRequestAsync()
+    {
+        // Save appointment
+       await AppointmentService.CreateAppointmentAsync(model);
+
+        showPopup = true;
+    }
+
+
+    private void ClosePopup()
+    {
+        showPopup = false;
+
+        model = new();
+    }
+}
+

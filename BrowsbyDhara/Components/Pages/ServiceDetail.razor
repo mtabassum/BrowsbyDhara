@@ -1,0 +1,108 @@
+﻿
+@page "/services/{ServiceType}"
+@using BrowsbyDhara.Models.Domain
+@using BrowsbyDhara.Services
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+
+<PageTitle>@GetServiceTitle() - Brows by Dhara</PageTitle>
+
+<!-- Hero Section -->
+<section class="bg-gradient-to-br from-rose-50 to-pink-100 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 text-center mb-4">
+            @GetServiceTitle()
+        </h1>
+        <div class="w-24 h-1 bg-gradient-to-r from-rose-400 to-pink-500 mx-auto"></div>
+    </div>
+</section>
+
+<!-- Service Details -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        @if (currentService != null)
+        {
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">@currentService.Headline</h2>
+                    <p class="text-gray-600 mb-4">@currentService.Description</p>
+                    
+                    <ul class="space-y-3 text-gray-600">
+                        @foreach (var benefit in currentService.Benefits)
+                        {
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-rose-500 mt-1 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                <span>@benefit</span>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                
+                <div class="bg-gradient-to-br from-rose-100 to-pink-200 rounded-2xl h-96 flex items-center justify-center">
+                    <span class="text-gray-500">@currentService.Title Image</span>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="py-16 bg-gradient-to-br from-rose-50 to-pink-100">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-800 text-center mb-12">Pricing</h2>
+        
+        @if (currentService?.PriceList != null)
+        {
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="space-y-4">
+                    @foreach (var price in currentService.PriceList)
+                    {
+                        <div class="flex justify-between items-center py-3 @(price != currentService.PriceList.Last() ? "border-b" : "")">
+                            <span class="text-lg text-gray-700">@price.ServiceName</span>
+                            <span class="text-xl font-bold text-rose-500">$@price.Price</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        
+        <div class="text-center mt-8">
+            <button type="button" 
+                    class="bg-rose-500 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg hover:bg-rose-600 transform hover:scale-105 transition-all duration-300"
+                    @onclick="BookAppointment">
+                Book Now
+            </button>
+        </div>
+    </div>
+</section>
+
+@code {
+    [Parameter]
+    public string ServiceType { get; set; } = "";
+
+    private ServiceInfo? currentService;
+    ServiceCatalog serviceCatalog = new ServiceCatalog();
+
+    protected override void OnParametersSet()
+    {
+        currentService = serviceCatalog.GetService(ServiceType);
+
+        if (currentService is null)
+        {
+            Navigation.NavigateTo("/");
+        }
+    }
+
+    private string GetServiceTitle()
+    {
+        return currentService?.Title ?? "Service";
+    }
+
+    private void BookAppointment()      
+    {
+        Navigation.NavigateTo("/request-appointment");
+    }
+
+}

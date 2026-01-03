@@ -7,3 +7,4 @@ node_modules/
 dist/
 doc/
 /BrowsbyDhara/Components/Pages/Services.razor
+**/appsettings.json

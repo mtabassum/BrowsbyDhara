@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BrowsbyDhara.Models;
+﻿using BrowsbyDhara.Models;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace BrowsbyDhara.Data
 {
@@ -15,7 +16,6 @@ namespace BrowsbyDhara.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<Service> Services { get; set; }
-        public DbSet<AppointmentService> AppointmentServices { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductSale> ProductSales { get; set; }
@@ -29,14 +29,14 @@ namespace BrowsbyDhara.Data
                 .HasOne(r => r.Customer)
                 .WithMany(c => c.Reviews)
                 .HasForeignKey(r => r.CustomerId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade); // Delete reviews when customer deleted
 
             // Review -> Appointment (Restrict)
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.Appointment)
                 .WithMany(a => a.Reviews)
                 .HasForeignKey(r => r.AppointmentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict); // DON'T delete reviews when appointment deleted
 
         }
     }

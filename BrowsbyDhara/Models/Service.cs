@@ -13,6 +13,5 @@
 
     
         public ServiceCategory Category { get; set; }
-        public ICollection<AppointmentService> AppointmentServices { get; set; }
     }
 }

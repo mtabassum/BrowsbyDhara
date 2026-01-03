@@ -1,0 +1,59 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Linq.Expressions
+@using System.Reflection
+@using Microsoft.AspNetCore.Components.Forms
+@typeparam TValue
+
+
+<div class="space-y-1">
+    <label class="block font-medium">
+        @Label
+        @if (IsRequired)
+        {
+            <span class="text-red-500 font-semibold ml-0.5">*</span>
+        }
+    </label>
+
+    @ChildContent
+
+    <ValidationMessage For="For" />
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public Expression<Func<TValue>> For { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public string Label { get; set; } = string.Empty;
+
+    [Parameter, EditorRequired]
+    public RenderFragment ChildContent { get; set; } = default!;
+
+    private bool IsRequired;
+
+    protected override void OnParametersSet()
+    {
+        MemberExpression? member = null;
+
+        if (For.Body is MemberExpression m)
+        {
+            member = m;
+        }
+        else if (For.Body is UnaryExpression u && u.Operand is MemberExpression m2)
+        {
+            member = m2;
+        }
+
+        if (member != null)
+        {
+            var property = member.Member as PropertyInfo;
+
+            if (property != null)
+            {
+                IsRequired = property
+                    .GetCustomAttributes(typeof(RequiredAttribute), true)
+                    .Any();
+            }
+        }
+    }
+}

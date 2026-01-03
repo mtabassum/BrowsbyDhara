@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 @inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
 
 
 <nav class="bg-rose-300 text-white shadow-md fixed w-full top-0 z-50 backdrop-blur-sm">
@@ -7,28 +8,47 @@
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <div class="flex items-center">
-                <h1 class="text-2xl font-bold tracking-wide cursor-pointer md:ml-2 select-none focus:outline-none" @onclick="@(() => ScrollToTop())">
+                <h1 class="text-2xl font-bold tracking-wide cursor-pointer md:ml-2 select-none focus:outline-none" @onclick="RefreshPage">
                     Brows by Dhara
                 </h1>
             </div>
             <!-- Desktop Navigation -->
             <div class="hidden md:block">
                 <div class="ml-10 flex items-baseline space-x-6">
-                    <div class="relative group">
+                   @*  <div class="relative group">
                         <a href="#services"
                            class="relative inline-block px-3 py-2 text-base font-medium cursor-pointer
           after:content-[''] after:block after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300
           group-hover:after:w-full"
                            @onclick="@(() => ScrollToSection("Services"))" @onclick:preventDefault="true">
                             Services
-                        </a>
-                        <!-- Submenu -->
-                        <div class="absolute left-0 mt-2 w-48 bg-white text-gray-700 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transform -translate-y-2 transition-all duration-300">     
-                        <a href="#eyebrow" class="block px-4 py-2 hover:bg-rose-100">Eyebrow Threading</a>
-                        <a href="#makeup" class="block px-4 py-2 hover:bg-rose-100">Makeup</a>
-                        <a href="#facial" class="block px-4 py-2 hover:bg-rose-100">Facial</a>
+                        </a> *@
+
+                    <div class="relative group">
+                        <button class="relative inline-block px-3 py-2 text-base font-medium cursor-pointer
+           after:content-[''] after:block after:w-0 after:h-0.5 after:bg-white after:transition-all after:duration-300
+           group-hover:after:w-full">
+                            Services
+                        </button>
+                        <!-- Submenu - All use the same page with different parameters -->
+                        <div class="absolute left-0 mt-2 w-48 bg-white text-gray-700 rounded-md shadow-lg opacity-0 invisible
+                group-hover:opacity-100 group-hover:visible transform -translate-y-2 group-hover:translate-y-0
+                transition-all duration-300">
+                            <NavLink href="services/eyebrow-threading"
+                                     class="block px-4 py-2 hover:bg-rose-100 cursor-pointer transition-colors">
+                                Eyebrow Threading
+                            </NavLink>
+                            <NavLink href="services/makeup"
+                                     class="block px-4 py-2 hover:bg-rose-100 cursor-pointer transition-colors">
+                                Makeup
+                            </NavLink>
+                            <NavLink href="services/facial"
+                                     class="block px-4 py-2 hover:bg-rose-100 cursor-pointer transition-colors">
+                                Facial
+                            </NavLink>
                         </div>
                     </div>
+
                     <!-- About -->
                     <a href="#about"
                        class="relative px-3 py-2 text-base font-medium cursor-pointer
@@ -48,7 +68,6 @@
                     </a>
                 </div>
             </div>
-
 
             <!-- Mobile menu button -->
             <div class="md:hidden">
@@ -132,14 +151,14 @@
             <div id="contact">
                 <h4 class="text-lg font-semibold mb-4">Contact Info</h4>
                 <div class="space-y-2 text-gray-300">
-                    <p>📍 abc Street<br>Auburn, AL</p>
+                    <p>📍 Stanley Street<br>Montreal</p>
                     <p>📞 +1 (xxx) xxx xx xx</p>
-                    <p>✉️ abc@email.com</p>
+                    <p>✉️ browsbydhara@gmail.com</p>
                     <div class="mt-4">
                         <p class="text-sm"><span class="font-medium">Hours:</span></p>
-                        <p class="text-sm">Tue-Wed: 9am-6pm</p>
-                        <p class="text-sm">Thu-Fri: 9am-7pm</p>
-                        <p class="text-sm">Sat: 9am-5pm</p>
+                        <p class="text-sm">Tue-Wed: 9am-5pm</p>
+                        <p class="text-sm">Thu-Fri: 9am-5pm</p>
+                        <p class="text-sm">Sat: 10am-3pm</p>
                     </div>
                 </div>
             </div>
@@ -164,8 +183,8 @@
         await JSRuntime.InvokeVoidAsync("scrollToSection", section);
     }
 
-    private async Task ScrollToTop()
+    private void RefreshPage()
     {
-        await JSRuntime.InvokeVoidAsync("scrollToTop");
+        NavigationManager.NavigateTo("/", forceLoad: true);
     }
 }
