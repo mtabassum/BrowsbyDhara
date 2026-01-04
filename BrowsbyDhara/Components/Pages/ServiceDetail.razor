@@ -41,7 +41,11 @@
                 </div>
                 
                 <div class="bg-gradient-to-br from-rose-100 to-pink-200 rounded-2xl h-96 flex items-center justify-center">
-                    <span class="text-gray-500">@currentService.Title Image</span>
+                    <span class="text-gray-500">
+                        <img src="@GetServiceImagePath(currentService.Title)"
+                             alt="@currentService.Title"
+                             class="w-full h-full object-cover rounded-2xl" />
+                    </span>
                 </div>
             </div>
         }
@@ -98,6 +102,18 @@
     private string GetServiceTitle()
     {
         return currentService?.Title ?? "Service";
+    }
+
+    private string GetServiceImagePath(string title)
+    {
+        return title switch
+        {
+            "Eyebrow Threading" => "/images/brows.jpeg",
+            "Professional Makeup" => "/images/makeup.jpeg",
+            "Facial Treatments" => "/images/facial.jpeg",
+            
+            _ => "/images/placeholder.jpeg"
+        };
     }
 
     private void BookAppointment()      
